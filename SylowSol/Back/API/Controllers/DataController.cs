@@ -8,7 +8,7 @@ public class DataController : ControllerBase //inherits from controller template
 {
     private readonly AppDbContext _context; //DI, allows access to database
 
-    public ItemsController(AppDbContext context)
+    public DataController(AppDbContext context)
     {
         _context = context;
     }

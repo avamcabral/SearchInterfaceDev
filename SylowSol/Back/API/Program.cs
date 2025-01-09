@@ -16,7 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 //options.UseSqlServer(connectionString); //specify sql server
 
 //});
-builder.Services.AddDbContext<Context>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryDB")));
 
 var app = builder.Build();
