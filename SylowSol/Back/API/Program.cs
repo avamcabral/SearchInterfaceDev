@@ -1,6 +1,6 @@
 using API.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.UseSqlServer;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
 {
 var builder = WebApplication.CreateBuilder(args);
