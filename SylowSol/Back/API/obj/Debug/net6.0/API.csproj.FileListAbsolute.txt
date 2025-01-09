@@ -1,0 +1,7 @@
+C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net6.0\API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net6.0\API.AssemblyInfoInputs.cache
+C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net6.0\API.AssemblyInfo.cs
+C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net6.0\API.csproj.CoreCompileInputs.cache
+C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net6.0\API.sourcelink.json
+C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net6.0\API.csproj.AssemblyReference.cache
