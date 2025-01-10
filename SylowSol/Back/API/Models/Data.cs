@@ -1,9 +1,9 @@
-using API.Models;
-
-
 using System;   
+using Back.API.Models;
 //using System.DateOnly;
 
+namespace Back.API.Models
+{
 public class Data 
 {
     public int ID {get; set;}
@@ -14,3 +14,4 @@ public class Data
     public DateOnly DateCreated {get; set;}
 }
 
+}

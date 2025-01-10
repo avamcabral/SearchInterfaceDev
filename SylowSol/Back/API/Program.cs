@@ -1,29 +1,28 @@
-using API.Models;
+using Back.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 
-{
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddTransient<DataAccess>();  //data access object so controller can see it i think
 
+/*
 // should be able to see database through the connection string from json, and dbcontext
-//builder.Services.AddDbContext<Context>(options =>
-//{
-    //var connectionString = builder.Configuration.GetConnectionString("InventoryDB");
-//options.UseSqlServer(connectionString); //specify sql server
 
-//});
 builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryDB")));
+*/ //removing database context i think, and just going with Raw sql queries via ADO.NET for simplicity
 
 var app = builder.Build();
 
 
-//majority of this basic functionality from template
-app.UseHttpsRedirection();
+// basic functionality from template
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
@@ -31,4 +30,4 @@ app.MapControllers();
 
 app.Run();
 
-}
+

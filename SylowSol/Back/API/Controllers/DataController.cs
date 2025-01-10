@@ -1,24 +1,34 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using API.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Data;
+using System.Data.SqlClient; 
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using Back.API.Models; //should import my data access object functionality
+//going to clean up unused libraries in a bit
+namespace Back.API.Controllers;
 
-[Route("api/[controller]")] //attribute routing
+[Route("api/[controller]")]
 [ApiController]
-public class DataController : ControllerBase //inherits from controller template/base for APIS here 
+public class DataController : ControllerBase
 {
-    private readonly AppDbContext _context; //DI, allows access to database
+    private readonly DataAccess _dataAccess;
 
-    public DataController(AppDbContext context)
+    public DataController(DataAccess dataAccess)
     {
-        _context = context;
+        _dataAccess = dataAccess; //injection
     }
 
-    // should resolve to api/DataController, i believe
-    [HttpGet] //specifies we are handling HTTP GET requests
-    public async Task<IActionResult> GetItems()
+
+    [HttpGet]
+    public IActionResult Fetch()
     {
-        var items = await _context.Items.ToListAsync();
-        return Ok(items); //should allow it to return data as JSON
+        var items = _dataAccess.GetItems();
+        return Ok(items);
     }
 
 }
