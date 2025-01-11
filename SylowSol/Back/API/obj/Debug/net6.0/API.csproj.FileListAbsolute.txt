@@ -70,3 +70,6 @@ C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net
 C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net6.0\API.pdb
 C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\obj\Debug\net6.0\ref\API.dll
+C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\ava\Documents\GitHub\SearchInterfaceDev\SylowSol\Back\API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

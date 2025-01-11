@@ -1,13 +1,16 @@
 using Back.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<DataAccess>();  //data access object so controller can see it i think
 
