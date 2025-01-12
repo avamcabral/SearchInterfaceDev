@@ -10,7 +10,7 @@ const SearchForm = ({ onSearchStart, onReceiveResult }) => {
     Description: "",
     Category: "",
     Status: "",
-    startDate: "",
+    beginDate: "",
     endDate: "",
   });
 
@@ -26,6 +26,7 @@ const SearchForm = ({ onSearchStart, onReceiveResult }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Request payload:", request)
     try {
         onSearchStart(); //should callback to parent
         const response = await axios.post("http://localhost:5016/api/data", request); //axios rest call to my API controller
@@ -65,10 +66,10 @@ console.log("Configs.categories:", Configs.categories);
       </div>
       {/* Created After: */}
       <div>
-        <label htmlFor="startDate">
+        <label htmlFor="beginDate">
           Created After:  
         </label>
-      <input type="date" name="startDate" onChange={handleChange} />
+      <input type="date" name="beginDate" onChange={handleChange} />
       </div>
       {/* Created Before: */}
       <div>
