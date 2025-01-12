@@ -4,10 +4,11 @@ const Configs = {
 
     categories: [
       { value: "Electronics", label: "Electronics" },
-      { value: "Kitchenware", label: "Furniture" },
+      { value: "Kitchenware", label: "Kitchenware" },
       { value: "Furniture", label: "Furniture" },
       { value: "Cleaning Supplies", label: "Cleaning Supplies" },
       { value: "Clothing", label: "Clothing" },
+      {value: null, label: "No Category Selected"}
     ],
   };
 

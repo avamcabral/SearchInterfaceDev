@@ -2,9 +2,10 @@ import React from "react"
 import { useState } from "react";
 import axios from 'axios';
 import Dropdown from "./Dropdown";
-import Configs from "./Configs";
 
 const SearchForm = ({ onSearchStart, onReceiveResult }) => {
+  //const [selected, setSelected] = useState(null)
+
   const [request, assignJson] = useState({
     Number: "",
     Description: "",
@@ -20,9 +21,12 @@ const SearchForm = ({ onSearchStart, onReceiveResult }) => {
     assignJson({ ...request, [e.target.name]: e.target.value }); //things should get added to the json as theyre input by user
   };
 
-  const handleDropdownChange = (selected) => {
-    assignJson({ ...request, Category: selected[0]?.value || "" }); //set selected category
-  };
+  function handleDropChange(selectedItem){ //specifically to manage changes for the dropdown select object
+    console.log(selectedItem)
+    if (selectedItem){
+    assignJson({ ...request, Category : selectedItem.value });
+    }
+}
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +44,19 @@ const SearchForm = ({ onSearchStart, onReceiveResult }) => {
     }
 };
 
-console.log("Configs.categories:", Configs.categories);
+const handleReset = () => {
+  //resets the form when the reset button is clicked, and because the values of each are linked to requests, the fields clear
+  assignJson({
+    Number: "",
+    Description: "",
+    Category: null,
+    Status: "",
+    beginDate: "",
+    endDate: "",
+  });
+};
+
+//console.log("Configs.categories:", Configs.categories);
   return (
     <form onSubmit={handleSubmit}>
       {/* Item Number */}
@@ -48,37 +64,48 @@ console.log("Configs.categories:", Configs.categories);
         <label htmlFor="Number">
           Item Number (Exact Match):  
         </label>
-      <input type="text" name="Number" placeholder="Number" onChange={handleChange} />
+      <input type="text" name="Number" value = {request.Number} placeholder="Number" onChange={handleChange} />
       </div>
       {/* Item Name(Description) */}
       <div>
         <label htmlFor="Description">
           Item Name (Description):  
         </label>
-      <input type="text" name="Description" placeholder="Description" onChange={handleChange} />
+      <input type="text" name="Description" value = {request.Description} placeholder="Description" onChange={handleChange} />
+      </div>
+      <div>
+        <Dropdown sendChange={handleDropChange} value={request.Category}/>
       </div>
       {/* Satus: */}
       <div>
         <label htmlFor="Status">
           Status(Inactive/Active):  
         </label>
-      <input type="text" name="Status" placeholder="Status" onChange={handleChange} />
+      <input type="text" name="Status" value={request.Status} placeholder="Status" onChange={handleChange} />
       </div>
       {/* Created After: */}
       <div>
         <label htmlFor="beginDate">
           Created After:  
         </label>
-      <input type="date" name="beginDate" onChange={handleChange} />
+      <input type="date" name="beginDate" value={request.beginDate} onChange={handleChange} />
       </div>
       {/* Created Before: */}
       <div>
         <label htmlFor="endDate">
           Created Before:  
         </label>
-      <input type="date" name="endDate" onChange={handleChange} />
+      <input type="date" name="endDate" value={request.endDate} onChange={handleChange} />
       </div>
-      <button type="submit">Search</button>
+      {/* Buttons */}
+      <div>
+        <button type="submit">Search</button>
+        <button type="button" onClick={handleReset}>
+          Reset
+        </button>
+      </div>
+      {/* Error Message */}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </form>
   );
 };

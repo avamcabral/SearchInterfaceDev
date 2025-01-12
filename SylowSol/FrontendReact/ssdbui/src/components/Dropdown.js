@@ -1,38 +1,45 @@
 import React, { useState } from 'react';
-import Select from "react-dropdown-select";
+import Select from "react-select";
+import Configs from './Configs';
+import "./DropStyle.css"
 
-//a dropdown menu; separate for reusability
+//the dropdown functionality
 
-function Dropdown({ops, onChange}) {
-    const [selected, setSelected] = useState([])
+const ops = Configs.categories  //imports the categories from the Cofigs utility file
 
-    const categories = [
-        { value: "Electronics", label: "Electronics" },
-        { value: "Kitchenware", label: "Furniture" },
-        { value: "Furniture", label: "Furniture" },
-        { value: "Cleaning Supplies", label: "Cleaning Supplies" },
-        { value: "Clothing", label: "Clothing" },
-      ]
+export default function Dropdown({sendChange, value}){ 
+
+    const opts = ops.map(o => ({ //maps out the options from the config file
+        "value" : o.value,
+        "label" : o.label
+      }))
+
+console.log(opts)
 
 
+    const handleSelect = (selectedItem) => {
+    if (selectedItem) {
+        sendChange(selectedItem) // pass selected value to searchForm
+    }
+};
     return (
-        <div className='d-flex justify-content-center mt-5'>
-            <div className='w-50 p-3 border rounded'>
-            <Select name = 'Select' 
-            ops = {ops} 
-            placeholder="Select an option"
-            onChange={(selected) => {
-                setSelected(selected);
-                onChange(selected); // Passing selected values back to parent
-            }}
-            >
-
-            </Select>
-
+        <div className="container">
+          <div className="select-container">
+            <div className="col-12">
+              <label>Select a Category: </label>
             </div>
+          </div>
+          <div className="container">
+            <div className="select-container">
+            <Select
+                options={opts}
+                value={opts.find((opt) => opt.value === value) || null} //receives this from searchform so searchform can reset it
 
+                placeholder="Select a Category"
+                onChange={handleSelect}
+              />
+            </div>
+          </div>
         </div>
-    )
+      );
 }
-
-export default Dropdown;

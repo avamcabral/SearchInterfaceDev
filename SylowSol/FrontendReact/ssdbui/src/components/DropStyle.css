@@ -1,0 +1,12 @@
+/* Custom styles for the dropdown */
+.select-container {
+    width: 200px; /* Set a desired width */
+    margin: 0 auto; /* Center the dropdown */
+}
+
+.select-container .react-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    font-size: 16px;
+}
