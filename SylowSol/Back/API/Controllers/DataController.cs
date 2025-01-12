@@ -38,7 +38,7 @@ public class DataController : ControllerBase
 
     if (jsonParams == null || string.IsNullOrEmpty(jsonParams.ToString()))
     {
-        return BadRequest("The jsonParams field is required.");
+        return BadRequest("The jsonParams field is required."); //this was mostly for testing with Postman when the controller wasn't receiving my Json from the request
     }
 
     try
@@ -65,11 +65,11 @@ public class DataController : ControllerBase
         var results = _dataAccess.Search(queryParams); //the data access object should take this object and work with it
         if (results == null)
             {
-                return NotFound(); // Return a 404 Not Found if results are null
+                return NotFound(); // return a 404 Not Found if results are null
             }
         else
             {
-                return Ok(results); // Return 200 with results
+                return Ok(results); // returns 200 with results
             }
     }
     

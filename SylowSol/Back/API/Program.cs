@@ -14,6 +14,16 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<DataAccess>();  //data access object so controller can see it i think
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", //make sure it knows the frontend is allowed to hit it
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 /*
 // should be able to see database through the connection string from json, and dbcontext
 
@@ -26,6 +36,8 @@ var app = builder.Build();
 
 // basic functionality from template
 //app.UseHttpsRedirection();
+
+app.UseCors("AllowReactApp");
 
 app.UseAuthorization();
 
