@@ -1,3 +1,11 @@
+--establish primary key for categories table as ID
+ALTER TABLE Categories
+ADD CONSTRAINT PK_Categories PRIMARY KEY (ID);
+
+--add foreign key referencing categories
+ALTER TABLE Items
+ADD CONSTRAINT FK_Items_Categories
+FOREIGN KEY (Category) REFERENCES Categories(ID);
 
 --populate categories
 INSERT INTO Categories (ID, [Name])
