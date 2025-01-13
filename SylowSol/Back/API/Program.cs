@@ -8,11 +8,9 @@ using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 var builder = WebApplication.CreateBuilder(args);
 
 
-
-builder.Services.AddControllers()
-    .AddNewtonsoftJson();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddTransient<DataAccess>();  //data access object so controller can see it i think
+builder.Services.AddControllers() //follows MVC model
+    .AddNewtonsoftJson(); //for json operations
+builder.Services.AddTransient<DataAccess>();  //registers DataAccess class (transient lifetime, for lightweight use) for dependency injection
 
 builder.Services.AddCors(options =>
 {
@@ -24,20 +22,20 @@ builder.Services.AddCors(options =>
                    .AllowAnyMethod();
         });
 });
-/*
-// should be able to see database through the connection string from json, and dbcontext
 
+/*
 builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryDB")));
-*/ //removing database context i think, and just going with Raw sql queries via ADO.NET for simplicity
+*/ //The above code is for registering the database context, AppDbContext, for EF CORE which is not used in this program.
+//Instead, because of simplistic functionality and small workload, it uses Raw sql queries via ADO.NET for simplicity
+//I did, however, leave the context file, as well as this registration code in the project to enable/jumpstart scaling up the project.
 
 var app = builder.Build();
 
 
-// basic functionality from template
-//app.UseHttpsRedirection();
+//app.UseHttpsRedirection(); //security measure need to enable for sensitive info
 
-app.UseCors("AllowReactApp");
+app.UseCors("AllowReactApp"); //allows react app to connect
 
 app.UseAuthorization();
 

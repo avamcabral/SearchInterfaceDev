@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 
-const PagTable = ({ results }) => {
+const PagTable = ({ results }) => { //table for formatting and displaying the results, used in Parent.js
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
 
-  // Calculate total pages
+  //get page total
   const totalPages = Math.ceil(results.length / resultsPerPage);
 
-  // Get the results for the current page
+  //results for current page
   const currentResults = results.slice(
     (currentPage - 1) * resultsPerPage,
     currentPage * resultsPerPage
   );
 
-  const handleNextPage = () => {
+  const handleNextPage = () => { //state change to next page
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }

@@ -4,7 +4,7 @@ using Back.API.Models;
 
 namespace Back.API.Models
 {
-public class Data 
+public class Data //sets up class for mapping and storing data received and for sending.
 {
     public int? Number {get; set;}
     public string Description {get; set;} = string.Empty;

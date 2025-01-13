@@ -1,27 +1,26 @@
 import React from 'react'
 import Select from "react-select";
 import Configs from './Configs';
-import "./DropStyle.css"
+import "./DropStyle.css" //style sheet
 
 //the dropdown functionality
 
 const ops = Configs.categories  //imports the categories from the Cofigs utility file
 
-export default function Dropdown({sendChange, value}){ 
+export default function Dropdown({sendChange, value}){ //it is a child of SearchForm
 
-    const opts = ops.map(o => ({ //maps out the options from the config file
+    const opts = ops.map(o => ({ //maps out the options from the config file so they can be used in the dropdown menu
         "value" : o.value,
         "label" : o.label
       }))
 
-console.log(opts)
-
 
     const handleSelect = (selectedItem) => {
     if (selectedItem) {
-        sendChange(selectedItem) // pass selected value to searchForm
+        sendChange(selectedItem) // pass selected value to searchForm when a value is selected
     }
 };
+//display the actual selecter
     return (
         <div className="container">
           <div className="select-container">

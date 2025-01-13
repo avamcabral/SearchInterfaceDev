@@ -2,7 +2,7 @@
 
 const Configs = {
 
-    categories: [
+    categories: [ //this is used in Dropdown.js
       { value: "Electronics", label: "Electronics" },
       { value: "Kitchenware", label: "Kitchenware" },
       { value: "Furniture", label: "Furniture" },
@@ -11,7 +11,7 @@ const Configs = {
       {value: null, label: "No Category Selected"}
     ],
 
-    stats: [
+    stats: [ //this is used in Status.js
         {value: 0, label: "Inactive"},
         {value: 1, label: "Active"},
         {value: null, label: "Either"}

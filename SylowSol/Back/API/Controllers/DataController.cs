@@ -1,49 +1,36 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Data;
-using System.Data.SqlClient; 
+using System.Collections.Generic; 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Threading.Tasks;
-using Back.API.Models; //should import my data access object functionality
-//going to clean up unused libraries in a bit
+using Back.API.Models; //imports data access object
+
 namespace Back.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/[controller]")] //this resolves to api/data, exposing the endpoint in the URL
 [ApiController]
-public class DataController : ControllerBase
+public class DataController : ControllerBase //inherits from ControllerBase, an API controller object from ASPNET
 {
     private readonly DataAccess _dataAccess;
 
     public DataController(DataAccess dataAccess)
     {
-        _dataAccess = dataAccess; //injection
+        _dataAccess = dataAccess; //dependency injection, connects and works with the data access object
     }
 
-/*
-    [HttpGet]
-    public IActionResult Fetch()
-    {
-        var items = _dataAccess.GetItems();
-        return Ok(items);
-    }
-*/
     [HttpPost]
-    public IActionResult SearchResults([FromBody] JObject jsonParams)
+    public IActionResult SearchResults([FromBody] JObject jsonParams) //from body prepares it to take json data, and post hides the reqeust in the URL and tells the server we're sending data
     {
 
     if (jsonParams == null || string.IsNullOrEmpty(jsonParams.ToString()))
     {
-        return BadRequest("The jsonParams field is required."); //this was mostly for testing with Postman when the controller wasn't receiving my Json from the request
+        return BadRequest("The jsonParams field is required."); //if nothing gets passed
     }
 
     try
     {
-        Data queryParams = jsonParams.ToObject<Data>(); //should parse the json object and instantiate my data object
+        Data queryParams = jsonParams.ToObject<Data>(); //parse the json object and instantiate data object
         
 
         if (queryParams.Number.HasValue && queryParams.Number.GetType() != typeof(int))
@@ -62,14 +49,14 @@ public class DataController : ControllerBase
                 throw new ArgumentException("Invalid search input for 'End Date'.  Please enter a date in the format yyyy-MM-dd.");
             }
       
-        var results = _dataAccess.Search(queryParams); //the data access object should take this object and work with it
+        var results = _dataAccess.Search(queryParams); //the data access object receives the parameters, processes them, and sends them off. 
         if (results == null)
             {
                 return NotFound(); // return a 404 Not Found if results are null
             }
         else
             {
-                return Ok(results); // returns 200 with results
+                return Ok(results); // returns 200 with results if successful
             }
     }
     

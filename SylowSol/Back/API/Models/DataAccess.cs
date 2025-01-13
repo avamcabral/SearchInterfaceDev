@@ -1,50 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
 using Back.API.Models;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+//using System.Linq;
+//using System.Net;
 using System.Data;
 using System.Data.SqlClient; 
 using Newtonsoft.Json;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
 namespace Back.API.Models
 {
     public class DataAccess
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration; //bring in configs to be able to see settings 
 
     public DataAccess(IConfiguration configuration)
     {
         _configuration = configuration;
     }
-      /* 
-        [HttpGet]
-        public string GetItems()
-    {
-        string connectionString = _configuration.GetConnectionString("InventoryDB");
-
-        using (SqlConnection con = new SqlConnection(connectionString)) //set up connection object
-        {
-            SqlCommand cmd = new SqlCommand("Select * from Items", con); //uses connection object to send command
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-
-            con.Open();
-            adapter.Fill(dt);
-
-            string jsonResult = JsonConvert.SerializeObject(dt);
-            return jsonResult; // should return the fetched table as json data
-        }
-    } */
 
     [HttpPost]
     public string Search(Data queryParams)
     {
-        string connectionString = _configuration.GetConnectionString("InventoryDB");
+        string connectionString = _configuration.GetConnectionString("InventoryDB"); //connects using string stored in appsettings.Development.json
 
         using (SqlConnection con = new SqlConnection(connectionString)) //set up connection object
 
@@ -77,12 +58,6 @@ namespace Back.API.Models
                     query += $" AND Categories.Name = @cat";
                 }
 
-            /*if (!string.IsNullOrEmpty(queryParams.Status))
-                {
-                    string stat = queryParams.Status;
-                    cmd.Parameters.Add("@stat", SqlDbType.VarChar).Value = stat;
-                    query += $" AND Status = @stat";
-                }*/
             
             if (queryParams.Status.HasValue)
                 {
@@ -94,11 +69,9 @@ namespace Back.API.Models
 
             if (queryParams.beginDate.HasValue)
                 {
-                    //DateOnly lowdate = queryParams.beginDate.Value;
                     DateTime lowdate = queryParams.beginDate.Value;
                     if (lowdate != null)
                     {
-                    //DateTime lowDateTime = Convert.ToDateTime(lowdate); //(new TimeOnly(0, 0));//having problems with DateOnly to Date, has to be DateTime to communicate with SQL i think
                     cmd.Parameters.Add("@lowvalue", SqlDbType.Date).Value = lowdate.Date;
                     query += $" AND DateCreated >= @lowvalue";
                     }
@@ -106,39 +79,15 @@ namespace Back.API.Models
                 }
             if (queryParams.endDate.HasValue)
                 {
-                    //DateOnly highdate = queryParams.endDate.Value;
                     DateTime highdate = queryParams.endDate.Value;
                     if (highdate != null)
                     {
-                    //DateTime highDateTime = Convert.ToDateTime(highdate); //(new TimeOnly(0,0));//having problems with DateOnly to Date, has to be DateTime to communicate with SQL i think
                     cmd.Parameters.Add("@highvalue", SqlDbType.Date).Value = highdate.Date;
                     query += $" AND DateCreated <= @highvalue";
                     }
                 }
-            
-           /* if (lowdate.HasValue && highdate.HasValue)
-                {
-                    query += $" AND DateCreated BETWEEN @highvalue AND @lowvalue";
-                }
-            else if (lowdate.HasValue)
-                {
-                    query += $" AND DateCreated >= @lowvalue";
-                }
-            else if (highdate.HasValue)
-                {
-                    query += $" AND DateCreated <= @highvalue";
-                }
-*/
         
-    
-
         cmd.CommandText = query;
-        Console.WriteLine(query);
-
-        foreach (SqlParameter param in cmd.Parameters)
-{
-    Console.WriteLine($"{param.ParameterName}: {param.Value}");
-}
 
         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
         DataTable dt = new DataTable();

@@ -1,4 +1,4 @@
-//changes status in the final result to a string
+//changes status in the final result to a string for readability
 
 export const formatStatus = (data) => {
     console.log(data.Status);

@@ -4,10 +4,9 @@ import axios from 'axios';
 import Dropdown from "./Dropdown";
 import Status from "./Status";
 
-export default function SearchForm({ onSearchStart, onReceiveResult, resetParent, failed }){
-  //const [selected, setSelected] = useState(null)
+export default function SearchForm({ onSearchStart, onReceiveResult, resetParent, failed }){ //searchForm gets all these as properties from 'Parent.js'
 
-  const [request, assignJson] = useState({
+  const [request, assignJson] = useState({ //sets up the results so they can be assigned and passed to request
     Number: "",
     Description: "",
     Category: "",
@@ -16,39 +15,35 @@ export default function SearchForm({ onSearchStart, onReceiveResult, resetParent
     endDate: "",
   });
 
-  const [errorMessage, setErrorMessage] = useState(""); //in case smth goes wrong, assign to display friendly error message to user
+  const [errorMessage, setErrorMessage] = useState(""); //in case smth goes wrong, assign to display user-friendly error message
 
-  const handleChange = (e) => {
+  const handleChange = (e) => { //when the search fields are updated, responds to update request accordingly
     assignJson({ ...request, [e.target.name]: e.target.value }); //things should get added to the json as theyre input by user
   };
 
   function handleDropChange(selectedItem){ //specifically to manage changes for the dropdown select object
-    console.log(selectedItem)
     if (selectedItem){
-    assignJson({ ...request, Category : selectedItem.value });
+    assignJson({ ...request, Category : selectedItem.value }); //assigns category
     }
 }
 
 function handleStatusChange(status){ //specifically to manage changes for the status select
-  console.log(status)
   if (status){
-  assignJson({ ...request, Status : status.value });
+  assignJson({ ...request, Status : status.value }); //assigns status
   }
 }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => { //called when submission button is clicked to send the request
+    e.preventDefault(); //prevents page refreshing
     try {
         onSearchStart(); //should callback to parent
-        const response = await axios.post("http://localhost:5016/api/data", request); //axios rest call to my API controller
-        console.log(response.data)
+        const response = await axios.post("http://localhost:5016/api/data", request); //axios rest call to API controller
         onReceiveResult(response.data); //callback to parent to handle state
         setErrorMessage("");  //empty error message if successful
     } 
     catch (error) {
-      failed(); //will remove the loading status from the screen
-      if (error.response) { //if it specifies with code
-        // Handle specific HTTP errors
+      failed(); //will remove the loading status from the screen; callback to Parent that will handle state change
+      if (error.response) { //handling for specific HTTP request related errors
         if (error.response.status === 400) {
             console.error('Bad Request: incorrect json input(400)');
             setErrorMessage("Improper or incomplete input. For Item Number, please enter a number, (ie, 12341). For description, please enter item names or partial names, (ie, tv).")
@@ -76,7 +71,7 @@ function handleStatusChange(status){ //specifically to manage changes for the st
 }
 }}
 const handleReset = () => {
-  //resets the form when the reset button is clicked, and because the values of each are linked to requests, the fields clear
+  //resets the form when the reset button is clicked, and because the values of each are linked to requests(in searchForm), the fields clear
   assignJson({
     Number: "",
     Description: "",
@@ -86,10 +81,9 @@ const handleReset = () => {
     endDate: "",
   });
   setErrorMessage("");
-  resetParent(); //call to parent to reset the table
+  resetParent(); //call to parent to clear the display table
 };
-
-//console.log("Configs.categories:", Configs.categories);
+//format the actual page dynamically:
   return (
     <form onSubmit={handleSubmit}>
       {/* Item Number */}
