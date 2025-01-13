@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from 'axios';
 import Dropdown from "./Dropdown";
 
-const SearchForm = ({ onSearchStart, onReceiveResult }) => {
+const SearchForm = ({ onSearchStart, onReceiveResult, resetParent }) => {
   //const [selected, setSelected] = useState(null)
 
   const [request, assignJson] = useState({
@@ -54,6 +54,7 @@ const handleReset = () => {
     beginDate: "",
     endDate: "",
   });
+  resetParent(); //call to parent to reset the table
 };
 
 //console.log("Configs.categories:", Configs.categories);
@@ -100,9 +101,7 @@ const handleReset = () => {
       {/* Buttons */}
       <div>
         <button type="submit">Search</button>
-        <button type="button" onClick={handleReset}>
-          Reset
-        </button>
+        <button type="button" onClick={handleReset}>Reset</button>
       </div>
       {/* Error Message */}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
