@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SearchForm from "./searchForm";
 import {trimDate} from "./TrimDate";
+import { formatStatus } from "./FormatStatus";
 import PagTable from "./pagTab";
 
 const Parent = () => { 
@@ -27,6 +28,9 @@ const Parent = () => {
       };
 
     const cutDateres = trimDate(results); //cut the time off the date using imported function trimDate
+    console.log(cutDateres)
+
+    const finalTable = formatStatus(cutDateres);
 
     const pageFlow = () => {
         if (loading) {
@@ -41,7 +45,7 @@ const Parent = () => {
         if (results && results.length > 0) {
           return (
             <div>
-                    <PagTable results={cutDateres}></PagTable>
+                    <PagTable results={finalTable}></PagTable>
 
                 </div> )
         } }

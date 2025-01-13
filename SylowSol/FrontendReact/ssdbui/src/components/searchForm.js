@@ -2,6 +2,7 @@ import React from "react"
 import { useState } from "react";
 import axios from 'axios';
 import Dropdown from "./Dropdown";
+import Status from "./Status";
 
 const SearchForm = ({ onSearchStart, onReceiveResult, resetParent }) => {
   //const [selected, setSelected] = useState(null)
@@ -26,6 +27,13 @@ const SearchForm = ({ onSearchStart, onReceiveResult, resetParent }) => {
     if (selectedItem){
     assignJson({ ...request, Category : selectedItem.value });
     }
+}
+
+function handleStatusChange(status){ //specifically to manage changes for the status select
+  console.log(status)
+  if (status){
+  assignJson({ ...request, Status : status.value });
+  }
 }
 
   const handleSubmit = async (e) => {
@@ -77,12 +85,8 @@ const handleReset = () => {
       <div>
         <Dropdown sendChange={handleDropChange} value={request.Category}/>
       </div>
-      {/* Satus: */}
       <div>
-        <label htmlFor="Status">
-          Status(Inactive/Active):  
-        </label>
-      <input type="text" name="Status" value={request.Status} placeholder="Status" onChange={handleChange} />
+      <Status sendStatus={handleStatusChange} value={request.Status}/>
       </div>
       {/* Created After: */}
       <div>

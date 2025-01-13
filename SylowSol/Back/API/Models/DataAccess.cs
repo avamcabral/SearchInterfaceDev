@@ -77,10 +77,17 @@ namespace Back.API.Models
                     query += $" AND Categories.Name = @cat";
                 }
 
-            if (!string.IsNullOrEmpty(queryParams.Status))
+            /*if (!string.IsNullOrEmpty(queryParams.Status))
                 {
                     string stat = queryParams.Status;
                     cmd.Parameters.Add("@stat", SqlDbType.VarChar).Value = stat;
+                    query += $" AND Status = @stat";
+                }*/
+            
+            if (queryParams.Status.HasValue)
+                {
+                    int stat = queryParams.Status.Value;
+                    cmd.Parameters.Add("@stat", SqlDbType.Int).Value = stat;
                     query += $" AND Status = @stat";
                 }
 
@@ -138,6 +145,7 @@ namespace Back.API.Models
         adapter.Fill(dt);
 
         string jsonResult = JsonConvert.SerializeObject(dt);
+        con.Close();
         return jsonResult; // should return the fetched table as json data
 
         }
