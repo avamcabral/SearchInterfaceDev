@@ -27,7 +27,11 @@ To install, clone this repository, either through Github Desktop, or through the
 
 Once you have cloned the repository, you must set up the database, and make sure the connection string is correct. After establishing a connection to your master database in the SQL Management Studio, click 'new query' and run the 'DBandTablesCREATE' script found under DataBaseScripts in this repository. This will create your database, named Inventory. Next, in the top left corner, switch from 'master' to 'Inventory', click 'new query' and run the 'Insertions' script, also found under DataBaseScripts. I have found it easiest to run these separately to avoid any errors in SQL Management Studio. You can check that your database has been created properly by again selecting 'new query' and running a simple Select * from Items; Select * from Categories. This should yield both tables in the 'results' tab at the bottom of the screen.
 
-After creating your database, we need to ensure the connection string will work. In Back\API\appsettings.Development.json, our connection string is stored and assigned to a value for use. It can be edited here. Make sure that if you changed the server name from the default that it matches in the connection string. 
+After creating your database, we need to ensure the connection string will work. In Back\API\appsettings.Development.json, our connection string is stored and assigned to a value for use. It can be edited here. Make sure that if you changed the server name from the default that it matches in the connection string. You need an entry that looks like this in your appsettings.Development.json: 
+  "ConnectionStrings": {
+    "InventoryDB" : "Server=localhost\\SQLEXPRESS;Database=Inventory;Integrated Security=True;Trusted_Connection=True;"
+  } 
+  localhost\\SQLEXPRESS is the default, and will work if you did not change the server name. 
 
 Next, navigate to Back\API to resolve dependencies and start the backend. In the terminal, run 
 dotnet restore
