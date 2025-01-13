@@ -4,7 +4,7 @@ import axios from 'axios';
 import Dropdown from "./Dropdown";
 import Status from "./Status";
 
-const SearchForm = ({ onSearchStart, onReceiveResult, resetParent }) => {
+export default function SearchForm({ onSearchStart, onReceiveResult, resetParent, failed }){
   //const [selected, setSelected] = useState(null)
 
   const [request, assignJson] = useState({
@@ -38,7 +38,6 @@ function handleStatusChange(status){ //specifically to manage changes for the st
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Request payload:", request)
     try {
         onSearchStart(); //should callback to parent
         const response = await axios.post("http://localhost:5016/api/data", request); //axios rest call to my API controller
@@ -47,11 +46,35 @@ function handleStatusChange(status){ //specifically to manage changes for the st
         setErrorMessage("");  //empty error message if successful
     } 
     catch (error) {
-        setErrorMessage("An error occurred. Please try again.");
-        console.error(error);
+      failed(); //will remove the loading status from the screen
+      if (error.response) { //if it specifies with code
+        // Handle specific HTTP errors
+        if (error.response.status === 400) {
+            console.error('Bad Request: incorrect json input(400)');
+            setErrorMessage("Improper or incomplete input. For Item Number, please enter a number, (ie, 12341). For description, please enter item names or partial names, (ie, tv).")
+      }
+        else if (error.response.status === 404) {
+          console.error('Resource not found (404).');
+          setErrorMessage("Resource you're trying to reach not found.");
     }
-};
-
+        else if (error.response.status === 500) {
+          console.error('500, server error.');
+          setErrorMessage("Something went wrong on the server side. Please try again later.")
+    }
+        else { //should catch anything else and post to console
+          console.error(`Unexpected Error: ${error.response.status}`);
+          setErrorMessage("Something went wrong, please try again.");
+    }
+  }
+  else if (error.request) { //for connection errors, ie, if api is down, this should catch
+    console.error('No response received from server.');
+    setErrorMessage("Can't connect to server. Please check connection and try again.")
+    
+} else {//anything else
+    console.error(`Error: ${error.message}`);
+    setErrorMessage("An unexpected error occurred, please try again.")
+}
+}}
 const handleReset = () => {
   //resets the form when the reset button is clicked, and because the values of each are linked to requests, the fields clear
   assignJson({
@@ -62,6 +85,7 @@ const handleReset = () => {
     beginDate: "",
     endDate: "",
   });
+  setErrorMessage("");
   resetParent(); //call to parent to reset the table
 };
 
@@ -112,5 +136,3 @@ const handleReset = () => {
     </form>
   );
 };
-
-export default SearchForm;

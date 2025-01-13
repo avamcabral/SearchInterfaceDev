@@ -9,23 +9,33 @@ const Parent = () => {
     const [results, setResult] = useState([]); 
     const [loading, setLoading] = useState(false);
     const [flag, setFlag] = useState(true);
+    const [fail, setFail] = useState(false);
 
     const handleSearchResults = (data) => {
+        setFail(false);
         setResult(data); //should receive the data and set the results
         setFlag(false);
         setLoading(false);  //tell return to stop displaying loading
     };
 
     const handleSearchStart = () => {
+        setFail(false);
         setLoading(true); //tell return to display loading
         setResult([]); //clear screen
     };
+
 
     const handleReset = () => { //ATTEMPT TO MOVE RESET BUTTON HERE
         setFlag(true); // Reset to "please start a search"
         setResult([]); // Clear results
         setLoading(false); // Ensure loading is false
+        setFail(false);
       };
+    
+    function tryAgain(){
+        setLoading(false);
+        setFail(true);
+    }
 
     const cutDateres = trimDate(results); //cut the time off the date using imported function trimDate
     console.log(cutDateres)
@@ -33,11 +43,14 @@ const Parent = () => {
     const finalTable = formatStatus(cutDateres);
 
     const pageFlow = () => {
-        if (loading) {
+        if (loading && !fail) {
           return <p>Loading...</p>; //shows loading
         }
-        if (flag) {
+        if (flag && !fail) {
           return <p>Click 'Search' to display table, or choose some filters to narrow your search first.</p>; // Message before search
+        }
+        if (fail && !loading){
+            return <p>Please reset page and try again.</p>
         }
         if (results && results.length === 0) {
           return <p>No results were found that match your search.</p>; 
@@ -81,6 +94,7 @@ const Parent = () => {
                 onReceiveResult={handleSearchResults} // callback from child searchForm
                 onSearchStart={handleSearchStart} //for displaying the loading state
                 resetParent={handleReset}
+                failed={tryAgain}
             />
               <div>{pageFlow()}</div>
             </div>
