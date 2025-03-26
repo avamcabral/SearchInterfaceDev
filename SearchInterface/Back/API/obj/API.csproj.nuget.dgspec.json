@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ava\\Documents\\GitHub\\SearchInterfaceDev\\SylowSol\\Back\\API\\API.csproj": {}
+    "C:\\Users\\ava\\Documents\\GitHub\\SearchInterfaceDev\\SearchInterface\\Back\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ava\\Documents\\GitHub\\SearchInterfaceDev\\SylowSol\\Back\\API\\API.csproj": {
+    "C:\\Users\\ava\\Documents\\GitHub\\SearchInterfaceDev\\SearchInterface\\Back\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ava\\Documents\\GitHub\\SearchInterfaceDev\\SylowSol\\Back\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\ava\\Documents\\GitHub\\SearchInterfaceDev\\SearchInterface\\Back\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\ava\\Documents\\GitHub\\SearchInterfaceDev\\SylowSol\\Back\\API\\API.csproj",
+        "projectPath": "C:\\Users\\ava\\Documents\\GitHub\\SearchInterfaceDev\\SearchInterface\\Back\\API\\API.csproj",
         "packagesPath": "C:\\Users\\ava\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ava\\Documents\\GitHub\\SearchInterfaceDev\\SylowSol\\Back\\API\\obj\\",
+        "outputPath": "C:\\Users\\ava\\Documents\\GitHub\\SearchInterfaceDev\\SearchInterface\\Back\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ava\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -116,7 +116,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     }

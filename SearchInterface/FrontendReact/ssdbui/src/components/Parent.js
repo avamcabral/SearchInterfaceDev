@@ -3,6 +3,7 @@ import SearchForm from "./searchForm";
 import {trimDate} from "./TrimDate";
 import { formatStatus } from "./FormatStatus";
 import PagTable from "./pagTab";
+import LoadingDots from "./LoadingDots";
 
 const Parent = () => { //set up all our states that need to change dynamically
     const [results, setResult] = useState([]); 
@@ -25,9 +26,9 @@ const Parent = () => { //set up all our states that need to change dynamically
 
 
     const handleReset = () => { //resets the search fields and the display
-        setFlag(true); // Reset to "please start a search"
-        setResult([]); // Clear results
-        setLoading(false); // Ensure loading is false
+        setFlag(true); //reset to "please start a search"
+        setResult([]); //clear results
+        setLoading(false); //ensure loading is false
         setFail(false); //clears secondary error message
       };
     
@@ -42,16 +43,24 @@ const Parent = () => { //set up all our states that need to change dynamically
 
     const pageFlow = () => { //controls dynamically what is displayed based on conditions (loading, pre-search, error, no results, success)
         if (loading && !fail) {
-          return <p>Loading...</p>; //shows loading
+          return <div className="page-flow" style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center", 
+            //height: "100vh"
+          }}>Loading...
+          <LoadingDots/>
+          </div>; //shows loading
         }
         if (flag && !fail) {
-          return <p>Click 'Search' to display table, or choose some filters to narrow your search first.</p>; // Message before search
+          return <div className="page-flow">Click 'Search' to display table, or choose some filters to narrow your search first.</div>; // Message before search
         }
         if (fail && !loading){ //displayed when an error has occurred along with error message
-            return <p></p>
+            return <div className="page-flow"></div>
         }
         if (results && results.length === 0) {
-          return <p>No results were found that match your search.</p>; //no matches found
+          return <div className="page-flow">No results were found that match your search.</div>; //no matches found
         }
         if (results && results.length > 0) {
           return ( //results table if query succeeds, formatted in PagTab.js
@@ -63,7 +72,7 @@ const Parent = () => { //set up all our states that need to change dynamically
 
         return (
             <div>
-            <h1>Search and Filter Inventory</h1>
+            <div className="header">Search and Filter Inventory</div>
             <div>
               <SearchForm
                 onReceiveResult={handleSearchResults} // callback from child searchForm

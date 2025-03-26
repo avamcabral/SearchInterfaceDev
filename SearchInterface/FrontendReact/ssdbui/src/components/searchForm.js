@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from 'axios';
 import Dropdown from "./Dropdown";
 import Status from "./Status";
+import {motion} from 'framer-motion';
 
 export default function SearchForm({ onSearchStart, onReceiveResult, resetParent, failed }){ //searchForm gets all these as properties from 'Parent.js'
 
@@ -87,18 +88,18 @@ const handleReset = () => {
   return (
     <form onSubmit={handleSubmit}>
       {/* Item Number */}
-      <div>
-        <label htmlFor="Number">
+      <div style={{fontFamily:"Shippori Antique B1, sans-serif", fontSize: "14px"}}>
+        <label htmlFor="Number" style={{margin: "0px 3px"}}>
           Item Number (Exact Match):  
         </label>
-      <input type="text" name="Number" value = {request.Number} placeholder="Number" onChange={handleChange} />
+      <input type="text" name="Number" style={{margin: "5px 3px", fontFamily:"Shippori Antique B1, sans-serif", fontSize: "13px"}} value = {request.Number} placeholder="Number" onChange={handleChange} />
       </div>
       {/* Item Name(Description) */}
-      <div>
-        <label htmlFor="Description">
+      <div style={{fontFamily:"Shippori Antique B1, sans-serif", fontSize: "14px"}}>
+        <label htmlFor="Description" style={{margin: "5px 3px"}}>
           Item Name (Description):  
         </label>
-      <input type="text" name="Description" value = {request.Description} placeholder="Description" onChange={handleChange} />
+      <input type="text" name="Description" style= {{fontFamily:"Shippori Antique B1, sans-serif", fontSize: "13px"}}value = {request.Description} placeholder="Description" onChange={handleChange} />
       </div>
       <div>
         <Dropdown sendChange={handleDropChange} value={request.Category}/>
@@ -108,25 +109,33 @@ const handleReset = () => {
       </div>
       {/* Created After: */}
       <div>
-        <label htmlFor="beginDate">
+        <label htmlFor="beginDate" style={{margin: "0px 3px 0px 0px", fontFamily:"Shippori Antique B1, sans-serif", fontSize: "14px"}}>
           Created After:  
         </label>
-      <input type="date" name="beginDate" value={request.beginDate} onChange={handleChange} />
+      <input type="date" name="beginDate" style={{margin: "3px 0px 3px 0px"}}value={request.beginDate} onChange={handleChange} />
       </div>
       {/* Created Before: */}
       <div>
-        <label htmlFor="endDate">
+        <label htmlFor="endDate" style={{margin: "0px 3px", fontFamily:"Shippori Antique B1, sans-serif", fontSize: "14px"}}>
           Created Before:  
         </label>
-      <input type="date" name="endDate" value={request.endDate} onChange={handleChange} />
+      <input type="date" name="endDate" value={request.endDate} onChange={handleChange} style={{margin: "3px"}} />
       </div>
       {/* Buttons */}
-      <div>
-        <button type="submit">Search</button>
-        <button type="button" onClick={handleReset}>Reset</button>
-      </div>
+      <motion.div
+      initial={{ y: 10, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 10,
+      }}
+      >
+        <motion.button type="submit" className="buttons" whileTap={{ scale: 0.9 }} >Search</motion.button>
+        <motion.button type="button"  className="buttons" whileTap={{ scale: 0.9 }} onClick={handleReset}>Reset</motion.button>
+      </motion.div>
       {/* Error Message */}
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {errorMessage && <p className="page-flow">{errorMessage}</p>}
     </form>
   );
 };

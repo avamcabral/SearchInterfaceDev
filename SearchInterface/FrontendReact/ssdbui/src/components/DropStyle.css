@@ -1,7 +1,13 @@
-/* Custom styles for the dropdown */
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&display=swap');
+
+/*style sheet for dropdowns specifically*/
 .select-container {
-    width: 200px; /* Set a desired width */
-    margin: 0 auto; /* Center the dropdown */
+    width: 200px; 
+    margin: 0 auto; 
+    padding: 3px;
+    font-family: "Shippori Antique B1", sans-serif;
+    font-weight: 200;
+    font-size: small;
 }
 
 .select-container .react-select {

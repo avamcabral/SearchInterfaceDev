@@ -1,0 +1,16 @@
+.loading-dots {
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: rgb(21, 22, 22);
+    border-radius: 0.25rem;
+    outline: rgb(56, 55, 55);
+  }
+  
+  .loading-container {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }

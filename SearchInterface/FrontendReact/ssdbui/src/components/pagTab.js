@@ -27,7 +27,7 @@ const PagTable = ({ results }) => { //table for formatting and displaying the re
 
   return (
     <div>
-      <h2>Here's What We Found: </h2>
+      <h2 style={{fontFamily:"Shippori Antique B1, sans-serif", fontSize: "20px"}}>Here's What We Found: </h2>
       <table border="1" style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr>
@@ -40,7 +40,7 @@ const PagTable = ({ results }) => { //table for formatting and displaying the re
         </thead>
         <tbody>
           {currentResults.map((results, index) => (
-            <tr key={index}>
+            <tr key={index} style={{fontFamily:"Shippori Antique B1, sans-serif", fontSize: "14px"}}>
               <td>{results.Number}</td>
               <td>{results.Description}</td>
               <td>{results.Category}</td>
@@ -53,16 +53,18 @@ const PagTable = ({ results }) => { //table for formatting and displaying the re
 
       <div style={{ marginTop: "10px" }}>
         <button
+        className="buttons"
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
           style={{ marginRight: "10px" }}
         >
           Previous
         </button>
-        <span>
+        <span style={{fontFamily:"Shippori Antique B1, sans-serif", fontSize: "14px"}}>
           Page {currentPage} of {totalPages}
         </span>
         <button
+        className="buttons"
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
           style={{ marginLeft: "10px" }}
